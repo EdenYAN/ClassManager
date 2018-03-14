@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 扫描controller（controller层注入） -->
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="com.mucilab.**.controller"/>
+
+    <!-- 会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean,是spring MVC为@Controllers分发请求所必须的 -->
+    <!-- 指定自己定义的validator -->
+   	<bean id="utf8Charset" class="java.nio.charset.Charset"
+          factory-method="forName">
+        <constructor-arg value="UTF-8"/>
+    </bean>
+
+    <mvc:resources mapping="/js/**" location="/js/" cache-period="2592000"/>
+
+    <!-- 对模型视图添加前后缀 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+</beans>
